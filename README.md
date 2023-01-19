@@ -35,3 +35,24 @@ Standard `mvn clean install` should do the job!
 
  1. What does it check?
  2. How this can be used in the future?
+
+## Task 2 - Value Objects
+
+ 1. Implement class Amount as Value Object in package com.mars.ecommerce.sales.domain.offer
+    - Amount should express number of items
+    - Should not let the negative number be stored
+    - Should have method to increase amount by 1
+    - Look into test: [AmountTest.groovy](src%2Ftest%2Fgroovy%2Fcom%2Fmars%2Fecommerce%2Fsales%2Fdomain%2Foffer%2FAmountTest.groovy)
+ 2. Implement class Price as Value Object in package com.mars.ecommerce.sales.prices
+    - Price should express monetary amount (alternate name would be Money, but we decided to talk about price in our domain)
+    - Because we know in close future we will be expanding to the other markets with different currency, we want to be able to set prices in different currencies, so Price should have both value and currency
+    - Should have methods for
+      - getting lower from two prices
+      - checking if price is lower than the other
+      - adding and subtracting price
+      - multiplying price by amount
+    - Look into test: [PriceTest.groovy](src%2Ftest%2Fgroovy%2Fcom%2Fmars%2Fecommerce%2Fsales%2Fdomain%2Fprices%2FPriceTest.groovy)
+    - Extra (if you finished earlier than your colleagues)
+      - At this moment we want only permit two currencies: EUR and USD
+      - Make validation that won't let using any other currency and add respective tests
+ 3. Let's discuss the different approaches
