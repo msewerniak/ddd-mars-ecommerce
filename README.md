@@ -91,4 +91,10 @@ Standard `mvn clean install` should do the job!
     - Hint:
       - Cart aggregate will encapsulate items collections for free and non-free items
       - There may be needed for some higher level service that will trigger proper method on the Cart (that service can be implemented as DomainService or CommandHandler, feel free to implement it the way it's easier for you, doesn't need to be one of the mentioned ones). That service will be supplied with ExtraItemsPolicy so Cart will not know it. That service can be also responsible for retrieving and storing the Cart data by using CartRepository
-    - You can look into the next commit if you have no idea how to start - this assignment is the most difficult from the whole workshop - it's totally fine if you look into easier version of this task! 
+    - You can look into the next commit if you have no idea how to start - this assignment is the most difficult from the whole workshop - it's totally fine if you look into easier version of this task!
+    - Simpler version of the above task
+      - Look into [CartService.java](src%2Fmain%2Fjava%2Fcom%2Fmars%2Fecommerce%2Fsales%2Fdomain%2Fcart%2FCartService.java)
+      - Look into [CartTest.groovy](src%2Ftest%2Fgroovy%2Fcom%2Fmars%2Fecommerce%2Fsales%2Fdomain%2Fcart%2FCartTest.groovy)
+      - Run tests - most of them are failing
+      - Implement what's needed in [Cart.java](src%2Fmain%2Fjava%2Fcom%2Fmars%2Fecommerce%2Fsales%2Fdomain%2Fcart%2FCart.java)
+      - Run again, fix, test (...) - should be all green

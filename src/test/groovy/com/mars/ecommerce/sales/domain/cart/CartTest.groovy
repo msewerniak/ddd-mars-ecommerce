@@ -7,20 +7,23 @@ import spock.lang.Specification
 
 class CartTest extends Specification {
 
+    CartRepository cartRepository = new CartHashMapRepository()
+    ExtraItemsPolicy extraItemsPolicy = new ExtraItemsPolicyInMemory()
+
+    CartService cartService = new CartService(cartRepository, extraItemsPolicy)
+
     CartItem DELL_XPS = new CartItem(Fixtures.Products.DELL_XPS.id(), Price.euro(1000))
     CartItem BAG = new CartItem(Fixtures.Products.BAG.id(), Price.ZERO)
-    
-    ExtraItemsPolicy extraItemsPolicy = new ExtraItemsPolicyInMemory()
 
     def "Can add an item"() {
         given:
         Cart cart = aCart()
 
         when:
-        // DELL_XPS added to the cart
+        cartService.addItem(cart.id(), DELL_XPS)
 
         then:
-        // cart items are [DELL_XPS]
+        [DELL_XPS] == cart.content()
     }
 
     def "Can add two same items"() {
@@ -28,25 +31,24 @@ class CartTest extends Specification {
         Cart cart = aCart()
 
         when:
-        // DELL_XPS added to the cart
-        // DELL_XPS added to the cart
+        cartService.addItem(cart.id(), DELL_XPS)
+        cartService.addItem(cart.id(), DELL_XPS)
 
         then:
-        // cart items are [DELL_XPS, DELL_XPS]
+        [DELL_XPS, DELL_XPS] == cart.content()
     }
 
     def "Can remove an item"() {
         given:
         Cart cart = aCart()
-        
         and:
-        // DELL_XPS added to the cart
+        cartService.addItem(cart.id(), DELL_XPS)
 
         when:
-        // DELL_XPS removed from the cart
+        cartService.removeItem(cart.id(), DELL_XPS)
 
         then:
-        // cart items are []
+        [] == cart.content()
     }
 
     def "Can remove two same items"() {
@@ -54,15 +56,15 @@ class CartTest extends Specification {
         Cart cart = aCart()
 
         and:
-        // DELL_XPS added to the cart
-        // DELL_XPS added to the cart
+        cartService.addItem(cart.id(), DELL_XPS)
+        cartService.addItem(cart.id(), DELL_XPS)
 
         when:
-        // DELL_XPS removed from the cart
-        // DELL_XPS removed from the cart
+        cartService.removeItem(cart.id(), DELL_XPS)
+        cartService.removeItem(cart.id(), DELL_XPS)
 
         then:
-        // cart items []
+        [] == cart.content()
     }
 
     def "When adding a laptop, bag is added for free"() {
@@ -73,10 +75,10 @@ class CartTest extends Specification {
         freeBagDiscountIsEnabled()
 
         when:
-        // DELL_XPS added to the cart
+        cartService.addItem(cart.id(), DELL_XPS)
 
         then:
-        // cart items [[DELL_XPS, BAG]
+        [DELL_XPS, BAG] == cart.content()
     }
 
     def "Two laptops means 2 bags"() {
@@ -87,11 +89,11 @@ class CartTest extends Specification {
         freeBagDiscountIsEnabled()
 
         when:
-        // DELL_XPS added to the cart
-        // DELL_XPS added to the cart
+        cartService.addItem(cart.id(), DELL_XPS)
+        cartService.addItem(cart.id(), DELL_XPS)
 
         then:
-        // cart items [DELL_XPS, DELL_XPS, BAG, BAG]
+        [DELL_XPS, DELL_XPS, BAG, BAG] == cart.content()
     }
 
     def "Can remove free bag"() {
@@ -102,11 +104,11 @@ class CartTest extends Specification {
         freeBagDiscountIsEnabled()
 
         when:
-        // DELL_XPS added to the cart
-        // BAG intentionally removed from the cart
+        cartService.addItem(cart.id(), DELL_XPS)
+        cartService.intentionallyRemoveFreeItem(cart.id(), BAG)
 
         then:
-        // cart items [DELL_XPS]
+        [DELL_XPS] == cart.content()
     }
 
     def "Can remove just one free bag"() {
@@ -117,12 +119,12 @@ class CartTest extends Specification {
         freeBagDiscountIsEnabled()
 
         when:
-        // DELL_XPS added to the cart
-        // DELL_XPS added to the cart
-        // BAG intentionally removed from the cart
+        cartService.addItem(cart.id(), DELL_XPS)
+        cartService.addItem(cart.id(), DELL_XPS)
+        cartService.intentionallyRemoveFreeItem(cart.id(), BAG)
 
         then:
-        // cart items [DELL_XPS, DELL_XPS, BAG]
+        [DELL_XPS, DELL_XPS, BAG] == cart.content()
     }
 
     def "I want my free bag back"() {
@@ -133,13 +135,13 @@ class CartTest extends Specification {
         freeBagDiscountIsEnabled()
 
         when:
-        // DELL_XPS added to the cart
-        // DELL_XPS added to the cart
-        // BAG intentionally removed from the cart
-        // BAG added back free item
+        cartService.addItem(cart.id(), DELL_XPS)
+        cartService.addItem(cart.id(), DELL_XPS)
+        cartService.intentionallyRemoveFreeItem(cart.id(), BAG)
+        cartService.addFreeItemBack(cart.id(), BAG)
 
         then:
-        // cart items [DELL_XPS, DELL_XPS, BAG, BAG]
+        [DELL_XPS, DELL_XPS, BAG, BAG] == cart.content()
     }
 
     def "Already has 2 free bags (and 2 laptops), wants just one new bag!"() {
@@ -149,12 +151,12 @@ class CartTest extends Specification {
         freeBagDiscountIsEnabled()
 
         when:
-        // DELL_XPS added to the cart
-        // DELL_XPS added to the cart
-        // BAG added again but not free item
+        cartService.addItem(cart.id(), DELL_XPS)
+        cartService.addItem(cart.id(), DELL_XPS)
+        cartService.addItem(cart.id(), BAG)
 
         then:
-        // cart items [DELL_XPS, DELL_XPS, BAG, BAG, BAG]
+        [DELL_XPS, DELL_XPS, BAG, BAG, BAG] == cart.content()
     }
 
     def "Has 2 free bags, removes one, adds it back, adds additional bag, removes it and adds back and removes"() {
@@ -165,17 +167,28 @@ class CartTest extends Specification {
         freeBagDiscountIsEnabled()
 
         when:
-        // DELL_XPS added to the cart
-        // DELL_XPS added to the cart
-        // BAG intentionally removed from the cart
-        // BAG added back free item
-        // BAG added again but not free item
-        // BAG removed from the cart
-        // BAG added again but not free item
-        // BAG removed from the cart
+        cartService.addItem(cart.id(), DELL_XPS)
+        cartService.addItem(cart.id(), DELL_XPS)
+        cartService.intentionallyRemoveFreeItem(cart.id(), BAG)
+        cartService.addFreeItemBack(cart.id(), BAG)
+        cartService.addItem(cart.id(), BAG)
+        cartService.removeItem(cart.id(), BAG)
+        cartService.addItem(cart.id(), BAG)
+        cartService.removeItem(cart.id(), BAG)
 
         then:
-        // cart items [DELL_XPS, DELL_XPS, BAG, BAG]
+        [DELL_XPS, DELL_XPS, BAG, BAG] == cart.content()
+    }
+
+    def "Try to hack the system and call addFreeItemBackCommand"() {
+        given:
+        Cart cart = aCart()
+
+        when:
+        cartService.addFreeItemBack(cart.id(), BAG)
+
+        then:
+        [] == cart.content()
     }
 
     def freeBagDiscountIsEnabled() {
