@@ -56,3 +56,14 @@ Standard `mvn clean install` should do the job!
       - At this moment we want only permit two currencies: EUR and USD
       - Make validation that won't let using any other currency and add respective tests
  3. Let's discuss the different approaches
+
+## Task 3 - Domain Entities
+
+ 1. Implement class Client as Domain Entity in package com.mars.ecommerce.sales.domain.client
+    - Client should have unique identifier and name (only)
+      - Let's create client identifier as a separate VO with internal identifier value of UUID
+      - Client identifier should let generate its value randomly
+      - Client name cannot be blank and must be shorter than 50 characters
+    - Look into test: [ClientTest.groovy](src%2Ftest%2Fgroovy%2Fcom%2Fmars%2Fecommerce%2Fsales%2Fdomain%2Fclient%2FClientTest.groovy)
+ 2. No more Domain Entities here - we will implement some more in the exercise for Aggregates
+ 3. Why Client was implemented as Domain Entity, can it be Value Object as well?
