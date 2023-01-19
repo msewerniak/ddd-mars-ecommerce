@@ -20,3 +20,18 @@ If you prefer to run your tests from IntelliJ IDEA it's useful to install: [Spoc
 ## Build
 
 Standard `mvn clean install` should do the job!
+
+# Workshop DDD - tactical design
+
+## Task 1 - Project structure
+
+ - Check out the project, look at the package structure and how the code is organized
+ - Focus on packages and class names, not on the details (some things are intentionally not finished or not used)
+
+ 1. What architecture it resembles?
+ 2. What are the pros and cons of applying this architecture?
+
+ - Look into [ProjectStructureTest.groovy](src%2Ftest%2Fgroovy%2Fcom%2Fmars%2Fecommerce%2Fsales%2FProjectStructureTest.groovy)
+
+ 1. What does it check?
+ 2. How this can be used in the future?

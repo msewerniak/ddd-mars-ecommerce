@@ -10,6 +10,11 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses
 class ProjectStructureTest {
 
     @ArchTest
+    public static final ArchRule shipping_should_not_depend_on_sales =
+            noClasses().that().resideInAPackage("..shipping..")
+                    .should().dependOnClassesThat().resideInAPackage("..sales..")
+
+    @ArchTest
     public static final ArchRule domain_should_not_depend_on_infrastructure =
             noClasses().that().resideInAPackage("..domain..").and().haveNameNotMatching(".*Test")
                     .should().dependOnClassesThat().resideInAPackage("..infrastructure..")
@@ -18,4 +23,5 @@ class ProjectStructureTest {
     public static final ArchRule domain_should_not_depend_on_api =
             noClasses().that().resideInAPackage("..domain..").and().haveNameNotMatching(".*Test")
                     .should().dependOnClassesThat().resideInAPackage("..api..")
+    
 }
