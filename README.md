@@ -124,3 +124,5 @@ Standard `mvn clean install` should do the job!
     - method 'create' should return the only implementation of DiscountPolicy that we have at the moment: [Fixed10EuroDiscount.java](src%2Fmain%2Fjava%2Fcom%2Fmars%2Fecommerce%2Fsales%2Fdomain%2Fdiscounts%2FFixed10EuroDiscount.java)
  3.  Implement OrderFactory that creates Order from a few provided parameters
     - try to replace usage of `Order.create` in [OrderRepositoryJdbcIntegrationTest.groovy](src%2Ftest%2Fgroovy%2Fcom%2Fmars%2Fecommerce%2Fsales%2Finfrastructure%2Frepository%2Fjdbc%2FOrderRepositoryJdbcIntegrationTest.groovy) with orderFactory.createOrder method.
+ 4. You might notice that there is a new method calculateOffer in cart
+    - check what it does and how order is now created with orderFactory.createOrder method

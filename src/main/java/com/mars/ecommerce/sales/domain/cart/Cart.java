@@ -1,11 +1,17 @@
 package com.mars.ecommerce.sales.domain.cart;
 
+import com.mars.ecommerce.sales.domain.discounts.DiscountPolicy;
+import com.mars.ecommerce.sales.domain.offer.Amount;
+import com.mars.ecommerce.sales.domain.offer.Offer;
+import com.mars.ecommerce.sales.domain.offer.OfferItem;
 import com.mars.ecommerce.sales.domain.prices.Price;
 import com.mars.ecommerce.sales.domain.product.ProductId;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public class Cart {
@@ -104,5 +110,25 @@ public class Cart {
                         i.price().currency(),
                         type))
                 .toList();
+    }
+
+    public Offer calculateOffer(DiscountPolicy discountPolicy) {
+
+        Map<ProductId, OfferItem> offerItems = new HashMap<>();
+
+        for (CartItem item : content()) {
+            ProductId productId = item.productId();
+            OfferItem offerItem = offerItems.get(productId);
+
+            if (offerItem != null) {
+                offerItems.put(productId,
+                        new OfferItem(offerItem.productId(), Price.min(item.price(), offerItem.price()),
+                                offerItem.amount().increase()));
+            } else {
+                offerItems.put(productId, new OfferItem(productId, item.price(), Amount.ZERO.increase()));
+            }
+        }
+
+        return new Offer(offerItems.values().stream().toList(), discountPolicy, "EUR");
     }
 }

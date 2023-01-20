@@ -8,7 +8,10 @@ import com.mars.ecommerce.sales.domain.client.Client
 import com.mars.ecommerce.sales.domain.client.ClientId
 import com.mars.ecommerce.sales.domain.client.ClientSnapshot
 import com.mars.ecommerce.sales.domain.delivery.DeliveryData
+import com.mars.ecommerce.sales.domain.discounts.DiscountFactory
+import com.mars.ecommerce.sales.domain.offer.Offer
 import com.mars.ecommerce.sales.domain.order.Order
+import com.mars.ecommerce.sales.domain.order.OrderFactory
 import com.mars.ecommerce.sales.domain.order.OrderId
 import com.mars.ecommerce.sales.domain.order.OrderItem
 import com.mars.ecommerce.sales.domain.order.OrderRepository
@@ -23,6 +26,12 @@ class OrderRepositoryJdbcIntegrationTest extends Specification {
 
     @Autowired
     OrderRepository cartRepository
+    
+    @Autowired
+    DiscountFactory discountFactory
+    
+    @Autowired
+    OrderFactory orderFactory
 
     def "should save and retrieve cart"() {
         
@@ -30,11 +39,12 @@ class OrderRepositoryJdbcIntegrationTest extends Specification {
         def cart = new Cart(CartId.generate())
         cart.add(new CartItem(new ProductId(100001), Price.euro(100L)))
 
-        ClientSnapshot snapshot = new Client(ClientId.generate(), "Joe").snapshot()
+        ClientSnapshot clientData = new Client(ClientId.generate(), "Joe").snapshot()
         DeliveryData deliveryData = new DeliveryData("some address")
         
-        def order = Order.create(new OrderId(cart.id().id()), snapshot, Collections.emptyList(),
-        deliveryData, "policy", Order.PaymentStatus.STARTED)
+        Offer calculatedOffer = cart.calculateOffer(discountFactory.create())
+        
+        def order = orderFactory.createOrder(cart.id(), calculatedOffer, deliveryData, clientData)
         
         when:
         cartRepository.save(order.snapshot())
