@@ -133,3 +133,13 @@ Standard `mvn clean install` should do the job!
     1. [Pricing.java](src%2Fmain%2Fjava%2Fcom%2Fmars%2Fecommerce%2Fsales%2Fdomain%2Fprices%2FPricing.java) -  Domain Service
     2. [OrderingService.java](src%2Fmain%2Fjava%2Fcom%2Fmars%2Fecommerce%2Fsales%2Fapi%2Fservice%2FOrderingService.java) - Application Service
     - analyze them, check what is different, which belongs to domain and which is higher level service for the process 
+
+## Task 9 - Domain Events
+
+ 1. Implement domain event OrderSubmittedEvent that will be sent from sales to shipping domain
+    - Check domain events in com.mars.ecommerce 
+    - Implement JustForwardDomainEventPublisher publish method based on Spring org.springframework.context.ApplicationEventPublisher
+    - Implement OrderSubmittedEvent as DomainEvent that implements [OrderDomainEvent.java](src%2Fmain%2Fjava%2Fcom%2Fmars%2Fecommerce%2Fcommon%2Fdomain%2Fevents%2FOrderDomainEvent.java)
+    - Publish OrderSubmittedEvent from com.mars.ecommerce.sales.domain.order.OrderDatabase.create method (you would need to add dependency to event publisher)
+    - Implement com.mars.ecommerce.shipping.api.listeners.OrderSubmittedForShippingListener.handle
+      - You can use spring annotation org.springframework.context.event.EventListener over the handle method
