@@ -126,3 +126,10 @@ Standard `mvn clean install` should do the job!
     - try to replace usage of `Order.create` in [OrderRepositoryJdbcIntegrationTest.groovy](src%2Ftest%2Fgroovy%2Fcom%2Fmars%2Fecommerce%2Fsales%2Finfrastructure%2Frepository%2Fjdbc%2FOrderRepositoryJdbcIntegrationTest.groovy) with orderFactory.createOrder method.
  4. You might notice that there is a new method calculateOffer in cart
     - check what it does and how order is now created with orderFactory.createOrder method
+    
+## Task 8 - Services
+
+ 1. There are two new services added to the project
+    1. [Pricing.java](src%2Fmain%2Fjava%2Fcom%2Fmars%2Fecommerce%2Fsales%2Fdomain%2Fprices%2FPricing.java) -  Domain Service
+    2. [OrderingService.java](src%2Fmain%2Fjava%2Fcom%2Fmars%2Fecommerce%2Fsales%2Fapi%2Fservice%2FOrderingService.java) - Application Service
+    - analyze them, check what is different, which belongs to domain and which is higher level service for the process 
