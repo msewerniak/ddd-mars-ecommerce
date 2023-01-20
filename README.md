@@ -98,3 +98,9 @@ Standard `mvn clean install` should do the job!
       - Run tests - most of them are failing
       - Implement what's needed in [Cart.java](src%2Fmain%2Fjava%2Fcom%2Fmars%2Fecommerce%2Fsales%2Fdomain%2Fcart%2FCart.java)
       - Run again, fix, test (...) - should be all green
+
+## Task 5 - Policies
+
+ 1. Policy ExtraItemsPolicy was already provided for you in the previous exercise for Aggregates
+    - Look into [ExtraItemsPolicyInMemory.java](src%2Fmain%2Fjava%2Fcom%2Fmars%2Fecommerce%2Fsales%2Finfrastructure%2Frepository%2Fhashmap%2FExtraItemsPolicyInMemory.java)
+    - It's not production ready implementation, think what would be needed to make it ready for production
