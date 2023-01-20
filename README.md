@@ -115,3 +115,12 @@ Standard `mvn clean install` should do the job!
       - select: `SELECT * FROM cart_items where cartId = :cartId`
       - delete: `DELETE FROM cart_items where cartId = :cartId`
       - insert: `INSERT INTO cart_items (cartId, productId, price, currency, cartItemType) VALUES (:cartId, :productId, :price, :currency, :type)`
+
+## Task 7 - Factories
+
+ 1. Check out the project, there is many changes, new packages were added: delivery, discounts, offer, order.
+    - analyze for a moment what has changed in the project
+ 2. Create class DiscountFactory as Factory for DiscountPolicy
+    - method 'create' should return the only implementation of DiscountPolicy that we have at the moment: [Fixed10EuroDiscount.java](src%2Fmain%2Fjava%2Fcom%2Fmars%2Fecommerce%2Fsales%2Fdomain%2Fdiscounts%2FFixed10EuroDiscount.java)
+ 3.  Implement OrderFactory that creates Order from a few provided parameters
+    - try to replace usage of `Order.create` in [OrderRepositoryJdbcIntegrationTest.groovy](src%2Ftest%2Fgroovy%2Fcom%2Fmars%2Fecommerce%2Fsales%2Finfrastructure%2Frepository%2Fjdbc%2FOrderRepositoryJdbcIntegrationTest.groovy) with orderFactory.createOrder method.

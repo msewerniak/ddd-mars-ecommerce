@@ -19,5 +19,8 @@ public class Client {
         }
         this.name = name;
     }
-    
+
+    public ClientSnapshot snapshot() {
+        return new ClientSnapshot(id.id(), name);
+    }
 }
