@@ -2,9 +2,11 @@ package com.mars.ecommerce.sales.domain.order;
 
 import com.mars.ecommerce.common.DomainEventPublisher;
 import com.mars.ecommerce.common.domain.events.OrderDomainEvent;
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+@DddAnnotations.DomainRepository
 @RequiredArgsConstructor
 @Repository
 public class OrderDatabase {

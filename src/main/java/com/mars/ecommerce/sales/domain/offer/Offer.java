@@ -2,9 +2,11 @@ package com.mars.ecommerce.sales.domain.offer;
 
 import com.mars.ecommerce.sales.domain.discounts.DiscountPolicy;
 import com.mars.ecommerce.sales.domain.prices.Price;
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 
 import java.util.List;
 
+@DddAnnotations.ValueObject
 public record Offer(List<OfferItem> offerItems, DiscountPolicy appliedDiscount, String currency) {
 
     public Price totalPrice() {

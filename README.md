@@ -143,3 +143,9 @@ Standard `mvn clean install` should do the job!
     - Publish OrderSubmittedEvent from com.mars.ecommerce.sales.domain.order.OrderDatabase.create method (you would need to add dependency to event publisher)
     - Implement com.mars.ecommerce.shipping.api.listeners.OrderSubmittedForShippingListener.handle
       - You can use spring annotation org.springframework.context.event.EventListener over the handle method
+
+## Task 10 - Name DDD building blocks
+
+ 1. There are [DddAnnotations.java](src%2Fmain%2Fjava%2Fcom%2Fmars%2Fecommerce%2Fsupport%2Fddd%2FDddAnnotations.java) annotations added to the project
+    - Screen through the project and check how the different classes were annotated with above annotations
+    - Ask questions: why it was annotated as ..., try to challenge things that you would name differently

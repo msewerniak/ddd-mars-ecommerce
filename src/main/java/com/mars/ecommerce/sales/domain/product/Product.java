@@ -1,5 +1,8 @@
 package com.mars.ecommerce.sales.domain.product;
 
+import com.mars.ecommerce.support.ddd.DddAnnotations;
+
+@DddAnnotations.AggregateRoot
 public class Product {
 
     private final ProductId id;

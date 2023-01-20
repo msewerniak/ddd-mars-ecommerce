@@ -2,7 +2,9 @@ package com.mars.ecommerce.sales.domain.discounts;
 
 import com.mars.ecommerce.sales.domain.offer.Offer;
 import com.mars.ecommerce.sales.domain.prices.Price;
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 
+@DddAnnotations.DomainPolicyImpl
 public class Fixed10EuroDiscount implements DiscountPolicy {
 
     static final Price MINIMAL_DISCOUNT_PRICE = Price.euro(100L);

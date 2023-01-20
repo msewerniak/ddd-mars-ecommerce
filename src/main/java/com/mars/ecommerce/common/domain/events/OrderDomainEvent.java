@@ -1,10 +1,12 @@
 package com.mars.ecommerce.common.domain.events;
 
 import com.mars.ecommerce.common.DomainEvent;
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 
 import java.time.Instant;
 import java.util.UUID;
 
+@DddAnnotations.DomainEvent
 public interface OrderDomainEvent extends DomainEvent {
 
     UUID orderId();

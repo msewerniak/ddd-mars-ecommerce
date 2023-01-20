@@ -1,5 +1,8 @@
 package com.mars.ecommerce.sales.domain.offer;
 
+import com.mars.ecommerce.support.ddd.DddAnnotations;
+
+@DddAnnotations.ValueObject
 public record Amount(int value) {
 
     public static final Amount ZERO = new Amount(0);

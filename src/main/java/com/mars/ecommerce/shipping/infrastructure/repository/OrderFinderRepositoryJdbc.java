@@ -3,6 +3,7 @@ package com.mars.ecommerce.shipping.infrastructure.repository;
 import com.mars.ecommerce.shipping.readmodel.OrderDto;
 import com.mars.ecommerce.shipping.readmodel.OrderFinder;
 import com.mars.ecommerce.shipping.readmodel.OrderItemDto;
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+@DddAnnotations.DomainRepositoryImpl
 @AllArgsConstructor
 @Repository
 public class OrderFinderRepositoryJdbc implements OrderFinder {

@@ -1,8 +1,10 @@
 package com.mars.ecommerce.sales.domain.product;
 
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+@DddAnnotations.DomainFactory
 @AllArgsConstructor
 @Component
 public class ProductFactory {

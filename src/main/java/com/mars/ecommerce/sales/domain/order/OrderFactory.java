@@ -7,11 +7,13 @@ import com.mars.ecommerce.sales.domain.offer.Offer;
 import com.mars.ecommerce.sales.domain.offer.OfferItem;
 import com.mars.ecommerce.sales.domain.product.ProductRepository;
 import com.mars.ecommerce.sales.domain.product.ProductSnapshot;
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@DddAnnotations.DomainFactory
 @RequiredArgsConstructor
 @Component
 public class OrderFactory {

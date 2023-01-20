@@ -1,5 +1,8 @@
 package com.mars.ecommerce.sales.domain.client;
 
+import com.mars.ecommerce.support.ddd.DddAnnotations;
+
+@DddAnnotations.DomainEntity
 public class Client {
 
     private final ClientId id;

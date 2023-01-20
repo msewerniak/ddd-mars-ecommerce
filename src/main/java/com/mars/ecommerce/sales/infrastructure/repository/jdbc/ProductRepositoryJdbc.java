@@ -2,6 +2,7 @@ package com.mars.ecommerce.sales.infrastructure.repository.jdbc;
 
 import com.mars.ecommerce.sales.domain.product.ProductRepository;
 import com.mars.ecommerce.sales.domain.product.ProductSnapshot;
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;
 
+@DddAnnotations.DomainRepositoryImpl
 @Repository
 @RequiredArgsConstructor
 public class ProductRepositoryJdbc implements ProductRepository {

@@ -1,7 +1,9 @@
 package com.mars.ecommerce.sales.domain.prices;
 
 import com.mars.ecommerce.sales.domain.offer.Amount;
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 
+@DddAnnotations.ValueObject
 public record Price(Long value, String currency) {
 
     public static final Price ZERO = euro(0L);

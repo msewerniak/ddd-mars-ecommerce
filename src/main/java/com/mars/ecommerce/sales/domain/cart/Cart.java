@@ -6,6 +6,7 @@ import com.mars.ecommerce.sales.domain.offer.Offer;
 import com.mars.ecommerce.sales.domain.offer.OfferItem;
 import com.mars.ecommerce.sales.domain.prices.Price;
 import com.mars.ecommerce.sales.domain.product.ProductId;
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@DddAnnotations.AggregateRoot
 @RequiredArgsConstructor
 public class Cart {
 

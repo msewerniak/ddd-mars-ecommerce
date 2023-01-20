@@ -1,5 +1,6 @@
 package com.mars.ecommerce.shipping.domain.warehouse;
 
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@DddAnnotations.AggregateRoot
 @NoArgsConstructor
 public class Shipment {
 

@@ -1,12 +1,14 @@
 package com.mars.ecommerce.sales.domain.prices;
 
 import com.mars.ecommerce.sales.domain.product.ProductId;
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@DddAnnotations.DomainService
 @Service
 public class Pricing {
 

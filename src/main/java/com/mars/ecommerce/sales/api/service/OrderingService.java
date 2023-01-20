@@ -16,11 +16,13 @@ import com.mars.ecommerce.sales.domain.order.OrderFactory;
 import com.mars.ecommerce.sales.domain.order.OrderId;
 import com.mars.ecommerce.sales.domain.prices.Pricing;
 import com.mars.ecommerce.sales.domain.product.ProductId;
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@DddAnnotations.ApplicationService
 @RequiredArgsConstructor
 @Service
 public class OrderingService {

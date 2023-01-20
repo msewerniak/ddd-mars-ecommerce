@@ -2,8 +2,10 @@ package com.mars.ecommerce.shipping.domain.warehouse;
 
 import com.mars.ecommerce.shipping.readmodel.OrderDto;
 import com.mars.ecommerce.shipping.readmodel.OrderItemDto;
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 import org.springframework.stereotype.Component;
 
+@DddAnnotations.DomainFactory
 @Component
 public class ShipmentFactory {
 

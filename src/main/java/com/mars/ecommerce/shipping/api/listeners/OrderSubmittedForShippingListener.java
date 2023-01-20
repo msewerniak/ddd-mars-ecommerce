@@ -6,11 +6,13 @@ import com.mars.ecommerce.shipping.domain.warehouse.ShipmentFactory;
 import com.mars.ecommerce.shipping.domain.warehouse.ShipmentRepository;
 import com.mars.ecommerce.shipping.readmodel.OrderDto;
 import com.mars.ecommerce.shipping.readmodel.OrderFinder;
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 import lombok.AllArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+@DddAnnotations.EventListener
 @AllArgsConstructor
 @Component
 class OrderSubmittedForShippingListener {

@@ -5,11 +5,13 @@ import com.mars.ecommerce.sales.domain.delivery.DeliveryData;
 import com.mars.ecommerce.sales.domain.offer.Amount;
 import com.mars.ecommerce.sales.domain.prices.Price;
 import com.mars.ecommerce.sales.domain.product.ProductSnapshot;
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
 
+@DddAnnotations.AggregateRoot
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Order {
 
@@ -64,6 +66,7 @@ public class Order {
     }
 }
 
+@DddAnnotations.ValueObject
 @AllArgsConstructor
 class OrderItem {
 

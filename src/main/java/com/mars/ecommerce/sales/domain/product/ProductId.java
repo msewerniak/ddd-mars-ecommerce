@@ -1,7 +1,9 @@
 package com.mars.ecommerce.sales.domain.product;
 
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 import lombok.EqualsAndHashCode;
 
+@DddAnnotations.ValueObject
 @EqualsAndHashCode
 public class ProductId {
 

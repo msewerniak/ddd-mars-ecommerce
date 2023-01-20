@@ -1,9 +1,11 @@
 package com.mars.ecommerce.sales.domain.cart;
 
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Set;
 
+@DddAnnotations.DomainService
 @RequiredArgsConstructor
 class CartService {
 

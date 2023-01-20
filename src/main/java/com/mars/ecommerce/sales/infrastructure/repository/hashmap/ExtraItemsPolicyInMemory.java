@@ -3,12 +3,14 @@ package com.mars.ecommerce.sales.infrastructure.repository.hashmap;
 import com.mars.ecommerce.sales.domain.cart.CartItem;
 import com.mars.ecommerce.sales.domain.cart.ExtraItemsPolicy;
 import com.mars.ecommerce.sales.domain.product.ProductId;
+import com.mars.ecommerce.support.ddd.DddAnnotations;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@DddAnnotations.DomainPolicyImpl
 @Component
 public class ExtraItemsPolicyInMemory implements ExtraItemsPolicy {
 
