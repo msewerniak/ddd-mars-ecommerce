@@ -1,5 +1,6 @@
 package com.mars.ecommerce.shipping.api.listeners;
 
+import com.mars.ecommerce.common.domain.events.OrderDomainEvent;
 import com.mars.ecommerce.shipping.domain.warehouse.Shipment;
 import com.mars.ecommerce.shipping.domain.warehouse.ShipmentFactory;
 import com.mars.ecommerce.shipping.domain.warehouse.ShipmentRepository;
@@ -20,7 +21,7 @@ class OrderSubmittedForShippingListener {
 
     @EventListener
     @Async
-    public void handle(OrderSubmittedEvent event) {
+    public void handle(OrderDomainEvent.OrderSubmittedEvent event) {
         OrderDto orderDetails = orderFinder.find(event.orderId());
 
         Shipment shipment = shipmentFactory.create(orderDetails);
