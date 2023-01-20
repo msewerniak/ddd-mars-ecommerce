@@ -1,5 +1,7 @@
 package com.mars.ecommerce.sales.domain.cart;
 
+import com.mars.ecommerce.sales.domain.prices.Price;
+import com.mars.ecommerce.sales.domain.product.ProductId;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -63,5 +65,44 @@ public class Cart {
 
     public static Cart create() {
         return new Cart(CartId.generate());
+    }
+
+
+    public static Cart fromSnapshot(CartSnapshot cartSnapshot) {
+
+        Cart cart = new Cart(new CartId(cartSnapshot.id()));
+
+        cartSnapshot.items().forEach(snapshot -> {
+            CartItem item =
+                    new CartItem(new ProductId(snapshot.productId()), new Price(snapshot.price(), snapshot.currency()));
+            switch (snapshot.type()) {
+            case ITEM -> cart.items.add(item);
+            case FREE_ITEM -> cart.freeItems.add(item);
+            case INTENTIONALLY_REMOVED_FREE_ITEM -> cart.intentionallyRemovedFreeItems.add(item);
+            }
+        });
+
+        return cart;
+    }
+
+    public CartSnapshot snapshot() {
+
+        List<CartSnapshot.CartItemSnapshot> cartItemSnapshots = new ArrayList<>();
+
+        cartItemSnapshots.addAll(snapshot(items, CartSnapshot.CartItemSnapshot.CartItemType.ITEM));
+        cartItemSnapshots.addAll(snapshot(freeItems, CartSnapshot.CartItemSnapshot.CartItemType.FREE_ITEM));
+        cartItemSnapshots.addAll(snapshot(intentionallyRemovedFreeItems,
+                CartSnapshot.CartItemSnapshot.CartItemType.INTENTIONALLY_REMOVED_FREE_ITEM));
+
+        return new CartSnapshot(id.id(), cartItemSnapshots);
+    }
+
+    private List<CartSnapshot.CartItemSnapshot> snapshot(List<CartItem> items,
+            CartSnapshot.CartItemSnapshot.CartItemType type) {
+        return items.stream()
+                .map(i -> new CartSnapshot.CartItemSnapshot(id.id(), i.productId().id(), i.price().value(),
+                        i.price().currency(),
+                        type))
+                .toList();
     }
 }
