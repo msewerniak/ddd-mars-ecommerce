@@ -7,3 +7,12 @@ CREATE TABLE IF NOT EXISTS products
 );
 
 CREATE SEQUENCE IF NOT EXISTS PRODUCTSSEQ START WITH 100000;
+
+CREATE TABLE IF NOT EXISTS cart_items
+(
+    cartId UUID,
+    productId INT,
+    price DOUBLE PRECISION,
+    currency VARCHAR (3),
+    cartItemType VARCHAR (20)
+);

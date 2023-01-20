@@ -104,3 +104,14 @@ Standard `mvn clean install` should do the job!
  1. Policy ExtraItemsPolicy was already provided for you in the previous exercise for Aggregates
     - Look into [ExtraItemsPolicyInMemory.java](src%2Fmain%2Fjava%2Fcom%2Fmars%2Fecommerce%2Fsales%2Finfrastructure%2Frepository%2Fhashmap%2FExtraItemsPolicyInMemory.java)
     - It's not production ready implementation, think what would be needed to make it ready for production
+
+## Task 6 - Repositories
+
+ 1. Implement Cart repository in com.mars.ecommerce.sales.infrastructure.repository.jdbc package
+    - You can use JPA or SpringJdbcTemplate
+    - In order to keep encapsulation you can make use of snapshot class: [CartSnapshot.java](src%2Fmain%2Fjava%2Fcom%2Fmars%2Fecommerce%2Fsales%2Fdomain%2Fcart%2FCartSnapshot.java)
+    - Look into integration test: [CartRepositoryJdbcIntegrationTest.groovy](src%2Ftest%2Fgroovy%2Fcom%2Fmars%2Fecommerce%2Fsales%2Finfrastructure%2Frepository%2Fjdbc%2FCartRepositoryJdbcIntegrationTest.groovy)
+    - Useful SQL when use spring org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate:
+      - select: `SELECT * FROM cart_items where cartId = :cartId`
+      - delete: `DELETE FROM cart_items where cartId = :cartId`
+      - insert: `INSERT INTO cart_items (cartId, productId, price, currency, cartItemType) VALUES (:cartId, :productId, :price, :currency, :type)`
