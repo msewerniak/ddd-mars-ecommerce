@@ -19,27 +19,33 @@ public class Cart {
     }
 
     public void add(CartItem item) {
-        // TODO: implement me
+        items.add(item);
     }
 
     public void addFree(CartItem item) {
-        // TODO: implement me
+        freeItems.add(item);
     }
 
     public void remove(CartItem item) {
-        // TODO: implement me
+        items.remove(item);
     }
 
     public void removeFreeItem(CartItem item) {
-        // TODO: implement me
+        freeItems.remove(item);
     }
 
     public void removeFreeItemIntentionally(CartItem removedItem) {
-        // TODO: implement me
+        if (freeItems.contains(removedItem)) {
+            freeItems.remove(removedItem);
+            intentionallyRemovedFreeItems.add(removedItem);
+        }
     }
 
     public void addFreeItemBack(CartItem freeRemovedItem) {
-        // TODO: implement me
+        if (itemWasPreviouslyRemoved(freeRemovedItem)) {
+            intentionallyRemovedFreeItems.remove(freeRemovedItem);
+            freeItems.add(freeRemovedItem);
+        }
     }
 
     public List<CartItem> content() {
@@ -50,8 +56,11 @@ public class Cart {
 
         return res;
     }
-
     
+    private boolean itemWasPreviouslyRemoved(CartItem freeRemovedItem) {
+        return intentionallyRemovedFreeItems.contains(freeRemovedItem);
+    }
+
     public static Cart create() {
         return new Cart(CartId.generate());
     }
